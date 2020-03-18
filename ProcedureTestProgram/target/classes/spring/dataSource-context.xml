@@ -9,22 +9,16 @@
 	<!-- dataSource 객체 설정 -->
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="org.postgresql.Driver" />
-		<property name="url" value="jdbc:postgresql://192.168.100.31:5432/ACS_DB" />
+		<property name="url" value="jdbc:postgresql://192.168.100.31:5432/ACS_DB?stringtype=unspecified" />
 		<property name="username" value="postgres" />
 		<property name="password" value="ablecom100%" />
-	</bean>  
-	
-	<!-- <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy" />
-		<property name="url" value="jdbc:sqlserver://192.168.50.106:1433;databaseName=master" />
-		<property name="username" value="sa"></property>
-		<property name="password" value="ablecom1!"></property>	
-	</bean>  
- -->
+	</bean>
+		
 	<!-- SqlSessionFactory 객체 설정 -->
 	<bean id="SqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="mapperLocations" value="classpath:/mappers/**/*Mapper.xml" />
+		<property name="mapperLocations" value="classpath*:/mappers/**/*Mapper.xml" />
+		<property name="configLocation" value="classpath:/spring/Context-mybatis.xml" />
 	</bean>
 	
 	<!-- SqlSession Template 설정 -->

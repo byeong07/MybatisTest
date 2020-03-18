@@ -28,11 +28,10 @@ import com.boardPrograms.web.board.service.AccessService;
 import com.boardPrograms.web.board.service.AccessServiceImpl;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations ={"file:src/main/resources/spring/appServlet/servlet-context.xml", "file:src/main/resources/spring/dataSource-context.xml"})
-//@ContextConfiguration(locations = {"classpath:spring/root-context.xml", "classpath:spring/dataSource-context.xml"})
-public class getAccessServiceTest {
+@ContextConfiguration(locations = {"classpath:spring/root-context.xml", "classpath:spring/dataSource-context.xml"})
+public class getAccessService {
 	
-	private static final Logger logger = LoggerFactory.getLogger(getAccessServiceTest.class);
+	private static final Logger logger = LoggerFactory.getLogger(getAccessService.class);
 	
 	//@Inject
 	//AccessDAO access;
@@ -47,17 +46,8 @@ public class getAccessServiceTest {
 	@Test
 	public void testGetEmpList() {
 		Params params = new Params();
-		/*
-		params.setsWorkSect("workse");
-		params.setsGrpVdn("adasd");
-		params.setsCallListName("ada");
-		params.setsPreNext("dada");
+		//params.setsWorkSect("work");
 		params.setiSequence(1);
-		params.setsFieldName("fds");
-		params.setsAccount("Adad");
-		params.setsText("asdas");
-		params.setsFilterSect("Ada");
-		*/
 		
 		//params.setAge(1);
 		List<AccessVO> empList = accessService.getAccessList(params);
@@ -67,14 +57,14 @@ public class getAccessServiceTest {
 		//List<AccessVO> empList = sqlSession.selectList(namespace);
 		
 		System.out.println("list" + empList);
-		
+
 		int i = 0;
 		AccessVO empVO = null;
 		Iterator<AccessVO> iterator = empList.iterator();
 		
 		while( iterator.hasNext() ) {
 			empVO = iterator.next();
-			System.out.println( "[mirinae.maru] EmpVO["+i+"] : " + empVO.getiSequence() +"\t" + empVO.getsCallListName() );
+			System.out.println( "[mirinae.maru] EmpVO["+i+"] : " + empVO.getiSequence() +"\t" );
 			i++;
 		}
 		

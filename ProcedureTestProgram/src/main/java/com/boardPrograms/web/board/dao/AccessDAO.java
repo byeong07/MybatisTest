@@ -1,6 +1,7 @@
 package com.boardPrograms.web.board.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
@@ -23,7 +24,10 @@ import com.boardPrograms.web.board.model.AccessVO;
 import com.boardPrograms.web.board.model.BoardVO;
 import com.boardPrograms.web.board.model.Params;
 
-@Repository
+//@Repository
+
 public interface AccessDAO {
+	//public Map<String, Object> getAccessList(Params params);
+	
 	public List<AccessVO> getAccessList(Params params);
 }

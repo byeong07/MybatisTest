@@ -3,14 +3,22 @@ package com.boardPrograms.web.board.service;
 import com.boardPrograms.web.board.model.Params;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Repository;
 
 import com.boardPrograms.web.board.model.AccessVO;
+import org.springframework.stereotype.Service;
 
-@Repository
+@Service
 public interface AccessService {
-	public List<AccessVO> getAccessList(final Params params);
-	public List<AccessVO> listAccessList();
+	
+	List<AccessVO> getAccessList(final Params params);
+	
+	//public Map<String, Object> getAccessList(final Params params);
+	
+	//List<AccessVO> getAccessList(final Params params);
+	
+	//List<AccessVO> listAccessList();
 }
 
