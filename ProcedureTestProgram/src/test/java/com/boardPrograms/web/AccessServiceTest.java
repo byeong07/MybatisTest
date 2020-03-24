@@ -31,6 +31,8 @@ public class AccessServiceTest {
 		params.setCampID("a");
 		params.setiSequence(1);
 		
+		
+		/*
 		params.setsFieldName("6001");
 		params.setCampStatID("a");
 		params.setsCallListName("a");
@@ -38,19 +40,20 @@ public class AccessServiceTest {
 		params.setsPreNext("a");
 		params.setsText("dad");
 		params.setsAccount("ada");
+		*/
 		
-		List<AccessVO> empList = accessService.getAccessList(params);
-		System.out.println("list" + empList);
+		List<AccessVO> accessList = accessService.getAccessList(params);
+		System.out.println("list" + accessList);
 		int i = 0;
 		AccessVO empVO = null;
-		Iterator<AccessVO> iterator = empList.iterator();
-		iterator = empList.iterator();
+		Iterator<AccessVO> iterator = accessList.iterator();
 		
 		while( iterator.hasNext() ) {
 			empVO = iterator.next();
 			System.out.println( "[mirinae.maru] EmpVO["+i+"] : " + empVO.getsFieldName() +"\t");
-			logger.info(params.getsCallListName() + params.getsFieldName() + params.getsAccount());
+			logger.info(empVO.getsCallListName() + empVO.getsFieldName() + empVO.getsAccount());
+			i++;
 		}
-	} 
+	} 	
 }
 			

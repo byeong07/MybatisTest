@@ -28,10 +28,11 @@ public class AccessDAOImpl implements AccessDAO {
 		
 	@Override
 	public List<AccessVO> getAccessList(Params params) {
-		return sqlSession.selectList(namespace + ".getAccessList", params);
+		return sqlSession.selectOne(namespace + ".getAccessList", params);
+		//return sqlSession.selectList(namespace + ".getAccessList", params);
 		//return sqlSession.selectList("com.boardPrograms.web.board.boarsMapper.getAccessList", params);
 	}
-		
+	
 	public SqlSession getSqlSession() {
 		return sqlSession;
 	}

@@ -68,11 +68,13 @@ public class BoardVO {
 		this.editDate = editDate;
 	}
 	
+	/*
 	@Override
 	public String toString() {
 		return "BoardVO [boardNumber=" + boardNumber + ", boardCate=" + boardCate + ", boardTitle=" + boardTitle + ", boardContent=" + boardContent
 				+ ", boardTag=" + boardTag + ", viewCount=" + viewCount + ", boardWriter=" + boardWriter + ", boardDate=" + boardDate + ", editDate="
 				+ editDate + "]";
 	}
+	*/
 	
 }

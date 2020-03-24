@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.boardPrograms.web.board.boarsMapper">
+<mapper namespace="com.boardPrograms.web.board.dao.AccessDAO">
 	<resultMap id="accessMap" type="com.boardPrograms.web.board.model.AccessVO">
 		<!-- <result property="CampID" column="CAMP_ID" javaType="java.lang.String" jdbcType='VARCHAR'></result> -->
 		<result property="CampID" column="CAMP_ID"></result>
 		<result property="CampStatID" column="NEXT_CAMP_NAME"></result>
 		<result property="sCallListName" column="SCENARIO_NAME"></result>
-		<result property="sPreNext" column="CAMP_NAME" javaType="java.lang.String" jdbcType="VARCHAR"></result>
-		<result property="sFieldName" column="GRP_VDN" javaType="java.lang.String" jdbcType="VARCHAR"></result>
+		<result property="sPreNext" column="CAMP_NAME" javaType="java.lang.String" jdbcType="OTHER"></result>
+		<result property="sFieldName" column="GRP_VDN" javaType="java.lang.String" jdbcType="OTHER"></result>
 		<result property="iSequence" column="CAMP_COUNT" javaType="int" jdbcType="INTEGER"></result>
 		<result property="sAccount" column="GRP_NAME" javaType="java.lang.String" jdbcType="VARCHAR"></result>
 		<result property="sText" column="TR_NAME" javaType="java.lang.String" jdbcType="VARCHAR"></result>
@@ -31,8 +31,8 @@
 	</parameterMap> -->
 	
 	<select id="getAccessList" statementType="CALLABLE" parameterType="com.boardPrograms.web.board.model.Params" resultMap="accessMap">
-		{call SP_ACS_CAMP_INFO(#{accessList, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=accessMap},
-		#{CampID, javaType=String, jdbcType=VARCHAR, mode=IN}, #{CampStatID, javaType=String, jdbcType=VARCHAR}, #{sCallListName, javaType=String, jdbcType=VARCHAR}, #{sPreNext}, ${iSequence}, #{sFieldName}, #{sAccount}, #{sText},
+		{call SP_ACS_CAMP_INFO(#{accessList, mode=OUT,jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=accessMap},
+		#{CampID, javaType=String, jdbcType=OTHER, mode=IN}, #{CampStatID, javaType=String, jdbcType=OTHER}, #{sCallListName, javaType=String, jdbcType=OTHER}, #{sPreNext}, ${iSequence}, #{sFieldName}, #{sAccount}, #{sText},
 		#{sFilterSect})
 		}
 	</select>

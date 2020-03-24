@@ -10,13 +10,43 @@
 		</layout>
 	</appender>
 	
+	<appender name="console-infolog" class="org.apache.log4j.ConsoleAppender">
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d %5p %m%n" />
+        </layout>  
+    </appender>
+     
+    <!-- Application Loggers -->
+    <logger name="first" additivity="false">
+        <level value="debug" />
+        <appender-ref ref="console"/>
+    </logger>
+     
+    <!-- Query Loggers -->
+    <logger name="jdbc.sqlonly" additivity="false"> 
+        <level value="INFO"/> 
+        <appender-ref ref="console-infolog"/> 
+    </logger>
+     
+    <logger name="jdbc.resultsettable" additivity="false"> 
+        <level value="INFO"/> 
+        <appender-ref ref="console"/> 
+    </logger> 
+ 
+    <!-- Root Logger -->
+    <root>
+        <priority value="off"/>
+        <appender-ref ref="console" />
+    </root>
+	
+
 	<!-- Application Loggers -->
-	<logger name="com.boardPrograms.web">
+	<!-- <logger name="com.boardPrograms.web">
 		<level value="info" />
-	</logger>
+	</logger> -->
 	
 	<!-- 3rdparty Loggers -->
-	<logger name="org.springframework.core">
+<!-- 	<logger name="org.springframework.core">
 		<level value="info" />
 	</logger>
 	
@@ -30,25 +60,21 @@
 
 	<logger name="org.springframework.web">
 		<level value="info" />
-	</logger>
+	</logger> -->
 
 	<!-- SQL Logger -->
 
-	<logger name="jdbc.sqltiming" additivity="false">
+	<!-- <logger name="jdbc.sqltiming" additivity="false">
 
 		<level value="warn" />
 
 		<appender-ref ref="console"/> 
-
+		
 	</logger>
 
-
 	<logger name="jdbc.sqlonly" additivity="false"> 
-
 		<level value="info"/> 
-
 		<appender-ref ref="console"/> 
-
 	</logger>
 	
 
@@ -57,7 +83,7 @@
 		<level value="warn"/>  
 
 		<appender-ref ref="console"/> 
-
+		
 	</logger> 
 
    
@@ -68,7 +94,7 @@
 		<appender-ref ref="console"/> 
 
 	</logger>
-
+	
     
 	<logger name="jdbc.resultsettable" additivity="false"> 
 
@@ -77,12 +103,12 @@
 		<appender-ref ref="console"/> 
 
 	</logger> 
-
-
+ -->
+ 
 	<!-- Root Logger -->
-	<root>
+<!-- 	<root>
 		<priority value="warn" />
 		<appender-ref ref="console" />
-	</root>
+	</root> -->
 	
 </log4j:configuration>

@@ -9,12 +9,15 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.jsp.PageContext;
+
 @Service
 public class AccessServiceImpl implements AccessService {
 
 	private static final String namespace = "com.boardPrograms.web.board.boarsMapper";
 	
 	AccessDAO accessDAO;
+	AccessVO accessVO;
 	private SqlSession sqlSession;
 	
 	public AccessServiceImpl(AccessDAO accessDAO, SqlSession sqlSession) {
@@ -22,25 +25,14 @@ public class AccessServiceImpl implements AccessService {
 		this.sqlSession = sqlSession;
 	}
 	
-	public AccessServiceImpl(AccessDAO accessDAO) {
-		this.accessDAO = accessDAO;
-	}
-
-	public AccessServiceImpl() {
-		this.accessDAO = accessDAO;
-	}
-	
-	public AccessServiceImpl(AccessVO accessVO) {
-		this.accessDAO = accessDAO;
-	}
-	
-	public List<AccessVO> AccessServiceImpl(Params params) {
-		this.accessDAO = accessDAO;
-		return accessDAO.getAccessList(params);
-	}
-	
 	public List<AccessVO> getAccessList(final Params params) {
-		return accessDAO.getAccessList(params);
+		final AccessDAO accessDAO = sqlSession.getMapper(AccessDAO.class);
+		accessDAO.getAccessList(params);
+		return params.getAccessList();
+	}
+	
+	public AccessServiceImpl() {
+		
 	}
 	
 	public AccessDAO getAccessDAO() {
