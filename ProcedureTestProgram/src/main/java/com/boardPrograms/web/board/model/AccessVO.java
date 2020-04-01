@@ -2,8 +2,8 @@ package com.boardPrograms.web.board.model;
 
 public class AccessVO {
 	
-	private String CampID;
-	private String CampStatID;
+	private String sWorkSect;
+	private String sGRPVDN;
 	private String sCallListName;
 	private String sPreNext;
 	private int iSequence;
@@ -12,17 +12,17 @@ public class AccessVO {
 	private String sText;
 	private String sFilterSect;
 	
-	public String getCampID() {
-		return CampID;
+	public String getsWorkSect() {
+		return sWorkSect;
 	}
-	public void setCampID(String CampID) {
-		this.CampID = CampID;
+	public void setsWorkSect(String sWorkSect) {
+		this.sWorkSect = sWorkSect;
 	}
-	public String getCampStatID() {
-		return CampStatID;
+	public String getsGRPVDN() {
+		return sGRPVDN;
 	}
-	public void setCampStatID(String CampStatID) {
-		this.CampStatID = CampStatID;
+	public void setsGRPVDN(String sGRPVDN) {
+		this.sGRPVDN = sGRPVDN;
 	}
 	public String getsCallListName() {
 		return sCallListName;

@@ -4,22 +4,22 @@ package com.boardPrograms.web.board.model;
 import java.util.List;
 
 public class Params {
-	private String CampID;
+	private String sWorkSect;
 	private String CampStatID;
-	private String sCallListName;
-	private String sPreNext;
-	private int iSequence;
-	private String sFieldName;
-	private String sAccount;
-	private String sText;
-	private String sFilterSect;
-	private List<AccessVO> accessList;
+	private String CallListName;
+	private String PreNext;
+	private int Sequence;
+	private String FieldName;
+	private String Account;
+	private String Text;
+	private String FilterSect;
+	private List<AccessVO> refResult;
 	
-	public String getCampID() {
-		return CampID;
+	public String getsWorkSect() {
+		return sWorkSect;
 	}
-	public void setCampID(String CampID) {
-		this.CampID = CampID;
+	public void setsWorkSect(String sWorkSect) {
+		this.sWorkSect = sWorkSect;
 	}
 	public String getCampStatID() {
 		return CampStatID;
@@ -27,53 +27,53 @@ public class Params {
 	public void setCampStatID(String CampStatID) {
 		this.CampStatID = CampStatID;
 	}
-	public String getsCallListName() {
-		return sCallListName;
+	public String getCallListName() {
+		return CallListName;
 	}
-	public void setsCallListName(String sCallListName) {
-		this.sCallListName = sCallListName;
+	public void setCallListName(String callListName) {
+		CallListName = callListName;
 	}
-	public String getsPreNext() {
-		return sPreNext;
+	public String getPreNext() {
+		return PreNext;
 	}
-	public void setsPreNext(String sPreNext) {
-		this.sPreNext = sPreNext;
+	public void setPreNext(String preNext) {
+		PreNext = preNext;
 	}
-	public int getiSequence() {
-		return iSequence;
+	public int getSequence() {
+		return Sequence;
 	}
-	public void setiSequence(int iSequence) {
-		this.iSequence = iSequence;
+	public void setSequence(int sequence) {
+		Sequence = sequence;
 	}
-	public String getsFieldName() {
-		return sFieldName;
+	public String getFieldName() {
+		return FieldName;
 	}
-	public void setsFieldName(String sFieldName) {
-		this.sFieldName = sFieldName;
+	public void setFieldName(String fieldName) {
+		FieldName = fieldName;
 	}
-	public String getsAccount() {
-		return sAccount;
+	public String getAccount() {
+		return Account;
 	}
-	public void setsAccount(String sAccount) {
-		this.sAccount = sAccount;
+	public void setAccount(String account) {
+		Account = account;
 	}
-	public String getsText() {
-		return sText;
+	public String getText() {
+		return Text;
 	}
-	public void setsText(String sText) {
-		this.sText = sText;
+	public void setText(String text) {
+		Text = text;
 	}
-	public String getsFilterSect() {
-		return sFilterSect;
+	public String getFilterSect() {
+		return FilterSect;
 	}
-	public void setsFilterSect(String sFilterSect) {
-		this.sFilterSect = sFilterSect;
+	public void setFilterSect(String filterSect) {
+		FilterSect = filterSect;
 	}
-	public List<AccessVO> getAccessList() {
-		return accessList;
+	public List<AccessVO> getRefResult() {
+		return refResult;
 	}
-	public void setAccessList(List<AccessVO> accessList) {
-		this.accessList = accessList;
+	public void setRefResult(List<AccessVO> refResult) {
+		this.refResult = refResult;
 	}
 	
 	

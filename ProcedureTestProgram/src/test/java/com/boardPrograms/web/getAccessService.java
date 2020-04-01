@@ -47,7 +47,7 @@ public class getAccessService {
 	public void testGetEmpList() {
 		Params params = new Params();
 		//params.setsWorkSect("work");
-		params.setiSequence(1);
+		params.setSequence(1);
 		
 		//params.setAge(1);
 		List<AccessVO> empList = accessService.getAccessList(params);

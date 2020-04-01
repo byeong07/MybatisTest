@@ -4,15 +4,15 @@
 <mapper namespace="com.boardPrograms.web.board.dao.AccessDAO">
 	<resultMap id="accessMap" type="com.boardPrograms.web.board.model.AccessVO">
 		<!-- <result property="CampID" column="CAMP_ID" javaType="java.lang.String" jdbcType='VARCHAR'></result> -->
-		<result property="CampID" column="CAMP_ID"></result>
-		<result property="CampStatID" column="NEXT_CAMP_NAME"></result>
-		<result property="sCallListName" column="SCENARIO_NAME"></result>
-		<result property="sPreNext" column="CAMP_NAME" javaType="java.lang.String" jdbcType="OTHER"></result>
-		<result property="sFieldName" column="GRP_VDN" javaType="java.lang.String" jdbcType="OTHER"></result>
-		<result property="iSequence" column="CAMP_COUNT" javaType="int" jdbcType="INTEGER"></result>
-		<result property="sAccount" column="GRP_NAME" javaType="java.lang.String" jdbcType="VARCHAR"></result>
-		<result property="sText" column="TR_NAME" javaType="java.lang.String" jdbcType="VARCHAR"></result>
-		<result property="sFilterSect" column="CALLLIST_NAME" javaType="java.lang.String" jdbcType="VARCHAR"></result>
+		<result property="sWorkSect" column="sWorkSect"></result>
+		<result property="sGRPVDN" column="sGRP_VDN"></result>
+		<result property="sCallListName" column="sCalllist_Name"></result>
+		<result property="sPreNext" column="sPre_Next" javaType="java.lang.String" jdbcType="VARCHAR"></result>
+		<result property="sFieldName" column="sFieldName" javaType="java.lang.String" jdbcType="VARCHAR"></result>
+		<result property="iSequence" column="iSequence" javaType="int" jdbcType="INTEGER"></result>
+		<result property="sAccount" column="sAccount" javaType="java.lang.String" jdbcType="VARCHAR"></result>
+		<result property="sText" column="sText" javaType="java.lang.String" jdbcType="VARCHAR"></result>
+		<result property="sFilterSect" column="sFilterSect" javaType="java.lang.String" jdbcType="VARCHAR"></result>
 	</resultMap>
 	
 	<!-- 	<parameterMap type="hashmap" id="ParamMap">
@@ -31,9 +31,12 @@
 	</parameterMap> -->
 	
 	<select id="getAccessList" statementType="CALLABLE" parameterType="com.boardPrograms.web.board.model.Params" resultMap="accessMap">
-		{call SP_ACS_CAMP_INFO(#{accessList, mode=OUT,jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=accessMap},
-		#{CampID, javaType=String, jdbcType=OTHER, mode=IN}, #{CampStatID, javaType=String, jdbcType=OTHER}, #{sCallListName, javaType=String, jdbcType=OTHER}, #{sPreNext}, ${iSequence}, #{sFieldName}, #{sAccount}, #{sText},
-		#{sFilterSect})
+		{call "SP_ACS_CAMP_INFO"(refcursor,
+		#{sWorkSect, javaType=String, jdbcType=VARCHAR, mode=IN}, 
+		#{CampStatID, javaType=String, jdbcType=VARCHAR}, 
+		#{CallListName, javaType=String, jdbcType=VARCHAR}, 
+		#{PreNext}, ${Sequence}, #{FieldName}, #{Account}, #{Text},
+		#{FilterSect})
 		}
 	</select>
 		

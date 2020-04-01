@@ -3,6 +3,11 @@ package com.boardPrograms.web.board.service;
 import com.boardPrograms.web.board.dao.AccessDAO;
 import com.boardPrograms.web.board.model.AccessVO;
 import com.boardPrograms.web.board.model.Params;
+import com.sun.istack.internal.logging.Logger;
+
+import sun.util.logging.resources.logging;
+
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
 
@@ -24,15 +29,12 @@ public class AccessServiceImpl implements AccessService {
 		this.accessDAO = accessDAO;
 		this.sqlSession = sqlSession;
 	}
-	
+		
 	public List<AccessVO> getAccessList(final Params params) {
 		final AccessDAO accessDAO = sqlSession.getMapper(AccessDAO.class);
+		System.out.println(params.toString());
 		accessDAO.getAccessList(params);
-		return params.getAccessList();
-	}
-	
-	public AccessServiceImpl() {
-		
+		return params.getRefResult();
 	}
 	
 	public AccessDAO getAccessDAO() {
