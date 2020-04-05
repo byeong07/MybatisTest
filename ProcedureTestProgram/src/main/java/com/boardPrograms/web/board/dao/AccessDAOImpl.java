@@ -1,5 +1,6 @@
 package com.boardPrograms.web.board.dao;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -18,17 +20,40 @@ import com.boardPrograms.web.board.model.Params;
 public class AccessDAOImpl implements AccessDAO {
 	
 	@Inject
-	SqlSession sqlSession;
+	SqlSessionTemplate sqlSession;
 	
 	private static final String namespace = "com.boardPrograms.web.board.boarsMapper";
 	
-	public AccessDAOImpl(SqlSession sqlSession) {
+	public AccessDAOImpl(SqlSessionTemplate sqlSession) {
 		this.sqlSession = sqlSession;
 	}
-		
+	
+	public void setAutoCommit(boolean autoCommit) {
+		try {
+			sqlSession.getConnection().setAutoCommit(autoCommit);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void commit() {
+		sqlSession.commit();
+	}
+	
+	public void rollback() {
+		sqlSession.rollback();
+	}
+	
 	@Override
 	public List<AccessVO> getAccessList(Params params) {
-		return sqlSession.selectOne(namespace + ".getAccessList", params);
+		try {
+			sqlSession.getConnection().setAutoCommit(false);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return sqlSession.selectList(namespace + ".getAccessList", params);
 		//return sqlSession.selectList(namespace + ".getAccessList", params);
 		//return sqlSession.selectList("com.boardPrograms.web.board.boarsMapper.getAccessList", params);
 	}
@@ -38,7 +63,7 @@ public class AccessDAOImpl implements AccessDAO {
 	}
 	
 	@Autowired
-	public void setSqlSession(SqlSession sqlSession) {
+	public void setSqlSession(SqlSessionTemplate sqlSession) {
 		this.sqlSession = sqlSession;
 	}
 

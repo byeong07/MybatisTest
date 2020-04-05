@@ -14,6 +14,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -29,21 +30,24 @@ public class AccessServiceTest {
 	
 	@Test
 	public void testGetEmpList() {
+		
 		Params params = new Params();
-		params.setsWorkSect("A");
-		params.setSequence(1);
-		params.setCampStatID("없음");
-		params.setCallListName("NO");
-		params.setAccount("가입자아웃바운드");
-		params.setFieldName("6001");
-		params.setFilterSect("U00120090904CL");
-		params.setPreNext("테스트-통합테스트용");
-		params.setText("GH_TEST");
+		
+		params.setsWorkSect("C");
+		params.setiSequence(1);
+		params.setsGRPVDN("없음");
+		params.setsCallListName("NO");
+		params.setsAccount("가입자아웃바운드");
+		params.setsFieldName("6001");
+		params.setsFilterSect("U00120090904CL");
+		params.setsPreNext("테스트-통합테스트용");
+		params.setsText("GH_TEST");
 		
 		List<AccessVO> accessList = accessService.getAccessList(params);
+		
 		//Cursor<AccessVO> accessList = (Cursor<AccessVO>) accessService.getAccessList(params); 
 		
-		System.out.println("list" + accessList);
+		System.out.println("list" + accessList.toString());
 		logger.info("list" + accessList);
 		int i = 0;
 		AccessVO empVO = null;

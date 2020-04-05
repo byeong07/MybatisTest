@@ -2,6 +2,7 @@ package com.boardPrograms.web.board.service;
 
 import com.boardPrograms.web.board.model.Params;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
