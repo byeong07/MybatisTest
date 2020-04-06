@@ -25,6 +25,7 @@ import com.boardPrograms.web.board.model.Params;
 public class AccessDAOImpl implements AccessDAO {
 	
 	//@Inject
+	@Autowired
 	@Resource(name = "sqlSession")
 	SqlSession sqlSession;
 	

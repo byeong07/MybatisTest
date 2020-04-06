@@ -30,10 +30,10 @@ import com.boardPrograms.web.board.model.Params;
 public interface AccessDAO {
 	//public Map<String, Object> getAccessList(Params params);
 	public void setAutoCommit(boolean autoCommit);
-	
+
 	public void commit();
 
 	public void rollback();
-	
+
 	public List<AccessVO> getAccessList(Params params);
 }

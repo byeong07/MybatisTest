@@ -8,10 +8,18 @@ import com.sun.istack.internal.logging.Logger;
 import sun.util.logging.resources.logging;
 
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.logging.Log;
+import org.apache.ibatis.logging.LogFactory;
 import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import java.util.HashMap;
 import java.util.List;
@@ -21,20 +29,29 @@ import javax.inject.Inject;
 import javax.servlet.jsp.PageContext;
 
 @Service
+@Component
 public class AccessServiceImpl implements AccessService {
 
 	private static final String namespace = "com.boardPrograms.web.board.boarsMapper";
 	
-	@Inject
+	@Autowired
 	AccessDAO accessDAO;
 	AccessVO accessVO;
+	
+	//@Autowired
 	private SqlSession sqlSession;
+	
+	@Autowired
+	private DataSourceTransactionManager transactionManager;
+	
+	private Log log = LogFactory.getLog(getClass());
 	
 	public AccessServiceImpl(AccessDAO accessDAO, SqlSession sqlSession) {
 		this.accessDAO = accessDAO;
 		this.sqlSession = sqlSession;
 	}
-		
+	
+	//@Transactional
 	public List<AccessVO> getAccessList(final Params params) {
 		
 		/*
@@ -43,18 +60,35 @@ public class AccessServiceImpl implements AccessService {
 		 * return params.getRef_result();
 		 */
 		
-		try { 
-			//sqlSession.getConnection().setAutoCommit(false);
-			accessDAO.setAutoCommit(false); 
-			final AccessDAO accessDAO = sqlSession.getMapper(AccessDAO.class);
+		DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+		def.setName("transaction");
+		def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+		
+		TransactionStatus status = transactionManager.getTransaction(def);
+		
+		try {
 			System.out.println(params.toString());
 			accessDAO.getAccessList(params);
+			
 		} catch (Exception e) {
-			accessDAO.rollback();
-		} finally {
-			accessDAO.setAutoCommit(true);
+			transactionManager.rollback(status);
+			throw e;
 		}
-		accessDAO.commit();	
+		
+		/*
+		 * System.out.println(params.toString()); accessDAO.getAccessList(params);
+		 */
+		
+		/*
+		 * try { //sqlSession.getConnection().setAutoCommit(false);
+		 * //accessDAO.setAutoCommit(false); //final AccessDAO accessDAO =
+		 * sqlSession.getMapper(AccessDAO.class);
+		 * 
+		 * } catch (Exception e) { accessDAO.rollback(); } finally {
+		 * accessDAO.setAutoCommit(true); }
+		 */
+		
+		transactionManager.commit(status);
 		return params.getRef_result();
 		
 	}
