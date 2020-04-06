@@ -32,7 +32,7 @@ public interface AccessDAO {
 	public void setAutoCommit(boolean autoCommit);
 	
 	public void commit();
-	
+
 	public void rollback();
 	
 	public List<AccessVO> getAccessList(Params params);

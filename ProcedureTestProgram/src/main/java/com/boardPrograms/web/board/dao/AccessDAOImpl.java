@@ -6,67 +6,69 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.boardPrograms.web.board.model.AccessVO;
 import com.boardPrograms.web.board.model.Params;
 
-@Repository
+@Repository("accessDAOImpl")
+//@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED, rollbackFor = SQLException.class)
 public class AccessDAOImpl implements AccessDAO {
 	
-	@Inject
-	SqlSessionTemplate sqlSession;
+	//@Inject
+	@Resource(name = "sqlSession")
+	SqlSession sqlSession;
 	
 	private static final String namespace = "com.boardPrograms.web.board.boarsMapper";
 	
-	public AccessDAOImpl(SqlSessionTemplate sqlSession) {
+	public AccessDAOImpl(SqlSession sqlSession) {
 		this.sqlSession = sqlSession;
 	}
 	
-	public void setAutoCommit(boolean autoCommit) {
+	public void setAutoCommit(boolean autoCommit) { 
 		try {
 			sqlSession.getConnection().setAutoCommit(autoCommit);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		} catch (SQLException e) { 
+			// TODO Auto-generated catch block 
+			e.printStackTrace(); 
+		} 
 	}
-	
+	 
 	public void commit() {
 		sqlSession.commit();
 	}
-	
+
 	public void rollback() {
 		sqlSession.rollback();
 	}
 	
+	//@Transactional
 	@Override
 	public List<AccessVO> getAccessList(Params params) {
-		try {
-			sqlSession.getConnection().setAutoCommit(false);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		return sqlSession.selectList(namespace + ".getAccessList", params);
 		//return sqlSession.selectList(namespace + ".getAccessList", params);
 		//return sqlSession.selectList("com.boardPrograms.web.board.boarsMapper.getAccessList", params);
 	}
-	
+	 
 	public SqlSession getSqlSession() {
 		return sqlSession;
 	}
 	
 	@Autowired
-	public void setSqlSession(SqlSessionTemplate sqlSession) {
+	public void setSqlSession(SqlSession sqlSession) {
 		this.sqlSession = sqlSession;
 	}
-
+	
+	
 	/*
 	@Override
 	public Map<String, Object> getAccessList(Params params) {

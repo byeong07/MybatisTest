@@ -28,27 +28,35 @@ public class AccessServiceImpl implements AccessService {
 	@Inject
 	AccessDAO accessDAO;
 	AccessVO accessVO;
-	private SqlSessionTemplate sqlSession;
+	private SqlSession sqlSession;
 	
-	public AccessServiceImpl(AccessDAO accessDAO, SqlSessionTemplate sqlSession) {
+	public AccessServiceImpl(AccessDAO accessDAO, SqlSession sqlSession) {
 		this.accessDAO = accessDAO;
 		this.sqlSession = sqlSession;
 	}
 		
 	public List<AccessVO> getAccessList(final Params params) {
-		try {
+		
+		/*
+		 * final AccessDAO accessDAO = sqlSession.getMapper(AccessDAO.class);
+		 * System.out.println(params.toString()); accessDAO.getAccessList(params);
+		 * return params.getRef_result();
+		 */
+		
+		try { 
 			//sqlSession.getConnection().setAutoCommit(false);
-			accessDAO.setAutoCommit(false);
+			accessDAO.setAutoCommit(false); 
 			final AccessDAO accessDAO = sqlSession.getMapper(AccessDAO.class);
 			System.out.println(params.toString());
 			accessDAO.getAccessList(params);
-			
 		} catch (Exception e) {
 			accessDAO.rollback();
 		} finally {
 			accessDAO.setAutoCommit(true);
 		}
-		return params.getRefResult();
+		accessDAO.commit();	
+		return params.getRef_result();
+		
 	}
 	
 	public AccessDAO getAccessDAO() {

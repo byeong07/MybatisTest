@@ -5,14 +5,13 @@
 	<resultMap id="accessMap" type="com.boardPrograms.web.board.model.AccessVO">
 		<result property="CampID" column="CAMP_ID" javaType="java.lang.String" jdbcType='VARCHAR'></result>
 		<result property="sWorkSect" column="CAMP_STAT_CD"></result>
-		<result property="sGRPVDN" column="SCEN"></result>
 		<result property="sCallListName" column="SCENARIO_NAME"></result>
 		<result property="sPreNext" column="CAMP_NAME" javaType="java.lang.String" jdbcType="VARCHAR"></result>
+		<result property="iSequence" column="CAMP_COUNT" javaType="int" jdbcType="INTEGER"></result>
 		<result property="sFieldName" column="GRP_VDN" javaType="java.lang.String" jdbcType="VARCHAR"></result>
-		<result property="iSequence" column="RATE" javaType="int" jdbcType="INTEGER"></result>
 		<result property="sAccount" column="GRP_NAME" javaType="java.lang.String" jdbcType="VARCHAR"></result>
 		<result property="sText" column="TR_NAME" javaType="java.lang.String" jdbcType="VARCHAR"></result>
-		<result property="sFilterSect" column="CAMP_ID" javaType="java.lang.String" jdbcType="VARCHAR"></result>
+		<result property="sFilterSect" column="CALLLIST_NAME" javaType="java.lang.String" jdbcType="VARCHAR"></result>
 	</resultMap>
 	
 	<!-- 	<parameterMap type="hashmap" id="ParamMap">
@@ -30,13 +29,13 @@
 		<parameter property="AccessVO" mode="OUT" jdbcType="CURSOR" resultMap="accessMap" />
 	</parameterMap> -->
 	
-	<select id="getAccessList" statementType="CALLABLE" resultType="com.boardPrograms.web.board.model.Params">
-		{call "SP_ACS_CAMP_INFO"(#{ref_result, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=accessMap},
-		#{CAMP_ID, javaType=String, jdbcType=VARCHAR}, 
-		#{CAMP_STAT_CD, javaType=String, jdbcType=VARCHAR}, 
-		#{SCENARIO_NAME, javaType=String, jdbcType=VARCHAR}, 
-		#{CAMP_NAME}, ${CAMP_COUNT}, #{GRP_VDN}, #{GRP_NAME}, #{TR_NAME},
-		#{CALLLIST_NAME})
+	<select id="getAccessList" statementType="CALLABLE" parameterType="com.boardPrograms.web.board.model.Params">
+		{call "SP_ACS_CAMP_INFO"(#{ref_result, mode=OUT, jdbcType=CURSOR, javaType=java.sql.ResultSet, resultMap=accessMap},
+		#{CampID, javaType=String, jdbcType=VARCHAR}, 
+		#{sWorkSect, javaType=String, jdbcType=VARCHAR}, 
+		#{sCallListName, javaType=String, jdbcType=VARCHAR}, 
+		#{sPreNext}, ${iSequence}, #{sFieldName}, #{sAccount}, #{sText},
+		#{sFilterSect})
 		}
 	</select>
 		

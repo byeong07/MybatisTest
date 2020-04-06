@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Params {
+	private String CampID;
 	private String sWorkSect;
-	private String sGRPVDN;
 	private String sCallListName;
 	private String sPreNext;
 	private int iSequence;
@@ -14,19 +14,19 @@ public class Params {
 	private String sAccount;
 	private String sText;
 	private String sFilterSect;
-	private List<AccessVO> refResult;	
+	private List<AccessVO> ref_result;	
 	
+	public String getCampID() {
+		return CampID;
+	}
+	public void setCampID(String campID) {
+		CampID = campID;
+	}
 	public String getsWorkSect() {
 		return sWorkSect;
 	}
 	public void setsWorkSect(String sWorkSect) {
 		this.sWorkSect = sWorkSect;
-	}
-	public String getsGRPVDN() {
-		return sGRPVDN;
-	}
-	public void setsGRPVDN(String sGRPVDN) {
-		this.sGRPVDN = sGRPVDN;
 	}
 	public String getsCallListName() {
 		return sCallListName;
@@ -70,14 +70,12 @@ public class Params {
 	public void setsFilterSect(String sFilterSect) {
 		this.sFilterSect = sFilterSect;
 	}
-	public List<AccessVO> getRefResult() {
-		return refResult;
+	public List<AccessVO> getRef_result() {
+		return ref_result;
 	}
-	public void setRefResult(List<AccessVO> refResult) {
-		this.refResult = refResult;
+	public void setRef_result(List<AccessVO> ref_result) {
+		this.ref_result = ref_result;
 	}
-	
-	
-	
+
 	
 }

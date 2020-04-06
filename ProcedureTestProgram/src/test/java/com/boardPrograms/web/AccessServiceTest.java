@@ -10,10 +10,15 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -24,39 +29,43 @@ public class AccessServiceTest {
 	
 	private static final Logger logger = LoggerFactory.getLogger(AccessServiceTest.class);
 	private static final String namespace = "com.boardPrograms.web.board.boarsMapper";
-
+	
 	@Autowired
 	private AccessService accessService;
 	
+	@Autowired
+	private DataSourceTransactionManager transactionManager;
+	
+	//@Transactional(isolation = Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED, rollbackFor=SQLException.class)
 	@Test
 	public void testGetEmpList() {
 		
 		Params params = new Params();
 		
-		params.setsWorkSect("C");
-		params.setiSequence(1);
-		params.setsGRPVDN("없음");
+		params.setCampID("C");
+		params.setsWorkSect("중지");
 		params.setsCallListName("NO");
-		params.setsAccount("가입자아웃바운드");
-		params.setsFieldName("6001");
-		params.setsFilterSect("U00120090904CL");
 		params.setsPreNext("테스트-통합테스트용");
+		params.setiSequence(3069);
+		params.setsFieldName("6001");
+		params.setsAccount("가입자아웃바운드");
 		params.setsText("GH_TEST");
+		params.setsFilterSect("U00120090904CL");
 		
-		List<AccessVO> accessList = accessService.getAccessList(params);
+		List<AccessVO> ref_result = accessService.getAccessList(params);
 		
 		//Cursor<AccessVO> accessList = (Cursor<AccessVO>) accessService.getAccessList(params); 
 		
-		System.out.println("list" + accessList.toString());
-		logger.info("list" + accessList);
+		System.out.println("list" + ref_result.toString());
+		logger.info("list" + ref_result);
 		int i = 0;
 		AccessVO empVO = null;
-		Iterator<AccessVO> iterator = accessList.iterator();
+		Iterator<AccessVO> iterator = ref_result.iterator();
 		
 		while( iterator.hasNext() ) {
 			empVO = iterator.next();
 			System.out.println( "[mirinae.maru] EmpVO["+i+"] : " + empVO.getsFieldName() +"\t" + empVO.getsWorkSect()
-			+ "\t" + empVO.getsGRPVDN() + "\t" + empVO.getiSequence() + "\t" + empVO.getsAccount() + "\t"
+			+ "\t" + empVO.getiSequence() + "\t" + empVO.getsAccount() + "\t"
 			+ empVO.getsCallListName() + "\t" + empVO.getsFilterSect() + "\t" + empVO.getsPreNext() + "\t" +
 			empVO.getsText());
 			
