@@ -1,5 +1,6 @@
 package com.boardPrograms.web;
 
+import com.boardPrograms.web.board.dao.AccessDAO;
 import com.boardPrograms.web.board.model.AccessVO;
 import com.boardPrograms.web.board.model.Params;
 import com.boardPrograms.web.board.service.AccessService;
@@ -37,7 +38,7 @@ public class AccessServiceTest {
 	private DataSourceTransactionManager transactionManager;
 	
 	@Test
-	@Transactional(isolation = Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED, rollbackFor=SQLException.class)
+	@Transactional(isolation = Isolation.READ_UNCOMMITTED, propagation=Propagation.REQUIRED, rollbackFor=SQLException.class)
 	public void testGetEmpList() {
 		
 		Params params = new Params();

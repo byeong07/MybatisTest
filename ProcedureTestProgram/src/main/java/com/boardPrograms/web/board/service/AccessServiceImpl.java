@@ -28,17 +28,17 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.servlet.jsp.PageContext;
 
-@Service
+//@Service
 @Component
 public class AccessServiceImpl implements AccessService {
 
-	private static final String namespace = "com.boardPrograms.web.board.boarsMapper";
+	private static final String namespace = "com.boardPrograms.web.board.dao.AccessDAO";
 	
 	@Autowired
 	AccessDAO accessDAO;
 	AccessVO accessVO;
 	
-	//@Autowired
+	@Autowired
 	private SqlSession sqlSession;
 	
 	@Autowired
@@ -60,16 +60,19 @@ public class AccessServiceImpl implements AccessService {
 		 * return params.getRef_result();
 		 */
 		
+		
 		DefaultTransactionDefinition def = new DefaultTransactionDefinition();
 		def.setName("transaction");
 		def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
-		
+
 		TransactionStatus status = transactionManager.getTransaction(def);
-		
+
 		try {
 			System.out.println(params.toString());
-			accessDAO.getAccessList(params);
-			
+			// accessDAO.getAccessList(params);
+
+			sqlSession.selectList(namespace + ".getAccessList", params);
+				
 		} catch (Exception e) {
 			transactionManager.rollback(status);
 			throw e;
@@ -88,6 +91,12 @@ public class AccessServiceImpl implements AccessService {
 		 * accessDAO.setAutoCommit(true); }
 		 */
 		
+	
+		/*
+		 * final AccessDAO accessDAO = sqlSession.getMapper(AccessDAO.class);
+		 * accessDAO.getAccessList(params); System.out.println(params.toString());
+		 */
+
 		transactionManager.commit(status);
 		return params.getRef_result();
 		
