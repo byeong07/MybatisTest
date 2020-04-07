@@ -38,7 +38,6 @@ public class AccessServiceTest {
 	private DataSourceTransactionManager transactionManager;
 	
 	@Test
-	@Transactional(isolation = Isolation.READ_UNCOMMITTED, propagation=Propagation.REQUIRED, rollbackFor=SQLException.class)
 	public void testGetEmpList() {
 		
 		Params params = new Params();
@@ -57,7 +56,7 @@ public class AccessServiceTest {
 		
 		//Cursor<AccessVO> accessList = (Cursor<AccessVO>) accessService.getAccessList(params); 
 		
-		System.out.println("list" + ref_result.toString());
+		//System.out.println("list" + ref_result.toString());
 		logger.info("list" + ref_result);
 		int i = 0;
 		AccessVO empVO = null;

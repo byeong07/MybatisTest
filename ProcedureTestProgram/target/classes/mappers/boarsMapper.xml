@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.boardPrograms.web.board.dao.AccessDAO">
+<mapper namespace="com.boardPrograms.web.board.dao.boardsMapper">
 	<resultMap id="accessMap" type="com.boardPrograms.web.board.model.AccessVO">
 		<result property="CampID" column="CAMP_ID" javaType="java.lang.String" jdbcType='VARCHAR'></result>
 		<result property="sWorkSect" column="CAMP_STAT_CD"></result>

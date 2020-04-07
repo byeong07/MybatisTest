@@ -18,9 +18,12 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,11 +31,11 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.servlet.jsp.PageContext;
 
-//@Service
 @Component
+@Transactional(isolation = Isolation.READ_UNCOMMITTED, propagation=Propagation.REQUIRED, rollbackFor=SQLException.class)
 public class AccessServiceImpl implements AccessService {
-
-	private static final String namespace = "com.boardPrograms.web.board.dao.AccessDAO";
+	
+	private static final String namespace = "com.boardPrograms.web.board.dao.boardsMapper";
 	
 	@Autowired
 	AccessDAO accessDAO;
@@ -51,8 +54,23 @@ public class AccessServiceImpl implements AccessService {
 		this.sqlSession = sqlSession;
 	}
 	
-	//@Transactional
+	@Transactional(isolation = Isolation.READ_UNCOMMITTED, propagation=Propagation.REQUIRED, rollbackFor=SQLException.class)
 	public List<AccessVO> getAccessList(final Params params) {
+		try {
+			sqlSession.getConnection().setAutoCommit(false);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		try {
+			System.out.println(params.toString()); 
+			accessDAO.getAccessList(params);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return params.getRef_result();
+		
 		
 		/*
 		 * final AccessDAO accessDAO = sqlSession.getMapper(AccessDAO.class);
@@ -60,23 +78,15 @@ public class AccessServiceImpl implements AccessService {
 		 * return params.getRef_result();
 		 */
 		
-		
-		DefaultTransactionDefinition def = new DefaultTransactionDefinition();
-		def.setName("transaction");
-		def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+		/*
+		 * DefaultTransactionDefinition def = new DefaultTransactionDefinition();
+		 * def.setName("transaction");
+		 * def.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRED);
+		 * def.setPropagationBehavior(TransactionDefinition.ISOLATION_READ_UNCOMMITTED);
+		 * 
+		 * TransactionStatus status = transactionManager.getTransaction(def);
+		 */
 
-		TransactionStatus status = transactionManager.getTransaction(def);
-
-		try {
-			System.out.println(params.toString());
-			// accessDAO.getAccessList(params);
-
-			sqlSession.selectList(namespace + ".getAccessList", params);
-				
-		} catch (Exception e) {
-			transactionManager.rollback(status);
-			throw e;
-		}
 		
 		/*
 		 * System.out.println(params.toString()); accessDAO.getAccessList(params);
@@ -92,13 +102,13 @@ public class AccessServiceImpl implements AccessService {
 		 */
 		
 	
+		
 		/*
 		 * final AccessDAO accessDAO = sqlSession.getMapper(AccessDAO.class);
 		 * accessDAO.getAccessList(params); System.out.println(params.toString());
 		 */
-
-		transactionManager.commit(status);
-		return params.getRef_result();
+		
+		//transactionManager.commit(status);
 		
 	}
 	
