@@ -21,11 +21,11 @@ import com.boardPrograms.web.board.model.AccessVO;
 import com.boardPrograms.web.board.model.Params;
 
 @Repository("accessDAOImpl")
-//@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED, rollbackFor = SQLException.class)
+@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED, rollbackFor = SQLException.class)
 public class AccessDAOImpl implements AccessDAO {
 	
 	//@Inject
-	@Autowired
+	//@Autowired
 	@Resource(name = "sqlSession")
 	SqlSession sqlSession;
 	
@@ -52,7 +52,7 @@ public class AccessDAOImpl implements AccessDAO {
 		sqlSession.rollback();
 	}
 	
-	//@Transactional
+	@Transactional(isolation=Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED, rollbackFor = SQLException.class)
 	@Override
 	public List<AccessVO> getAccessList(Params params) {
 		return sqlSession.selectList(namespace + ".getAccessList", params);

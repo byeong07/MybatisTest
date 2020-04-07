@@ -37,7 +37,7 @@ public class AccessServiceTest {
 	private DataSourceTransactionManager transactionManager;
 	
 	@Test
-	//@Transactional(isolation = Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED, rollbackFor=SQLException.class, timeout = 10)
+	@Transactional(isolation = Isolation.READ_COMMITTED, propagation=Propagation.REQUIRED, rollbackFor=SQLException.class)
 	public void testGetEmpList() {
 		
 		Params params = new Params();
